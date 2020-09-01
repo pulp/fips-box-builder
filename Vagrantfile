@@ -10,15 +10,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # to browse that repository a bit to find the latest successful Vagrant image. For example, at the
   # time of this writing, I could set this setting like this for the latest F24 image:
   # config.vm.box = "https://kojipkgs.fedoraproject.org/compose/rawhide/latest-Fedora-Rawhide/compose/CloudImages/x86_64/images/<imagename>.vagrant-libvirt.box"
-  config.vm.box = "centos/7"
+
+  # Uncomment this, comment below lines for CentOS 7
+  # config.vm.box = "centos/7"
+  # Latest CentOS 7 box is not on vagrantcloud
+  config.vm.box = "centos/82"
+  config.vm.box_url = "https://cloud.centos.org/centos/8/vagrant/x86_64/images/CentOS-8-Vagrant-8.2.2004-20200611.2.x86_64.vagrant-libvirt.box"
 
   # need to use the default vagrant key
   config.ssh.insert_key = false
 
-  config.vm.provision "shell", inline: "sudo yum install -y epel-release"
+  # Disable the rsynced folder, which adds pointless disk space.
+  config.vm.synced_folder ".", "/vagrant", disabled: true
 
-  # Comment this line if you would like to disable the automatic update during provisioning
-  config.vm.provision "shell", inline: "sudo yum upgrade -y"
+  # Uncomment to create CentOS 7 box. (May not be needed)
+  # config.vm.provision "shell", inline: "sudo yum install -y epel-release"
+
+  # Uncomment this line if you would like to enable the automatic update during provisioning
+  # In case the box is not the latest minor release of CentOS
+  # config.vm.provision "shell", inline: "sudo yum upgrade -y"
 
   # bootstrap and run with ansible
   config.vm.provision "shell", path: "scripts/bootstrap-ansible.sh"
