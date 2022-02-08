@@ -14,8 +14,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Uncomment this, comment below lines for CentOS 7
   # config.vm.box = "centos/7"
   # Latest CentOS 7 box is not on vagrantcloud
-  config.vm.box = "centos/82"
-  config.vm.box_url = "https://cloud.centos.org/centos/8/vagrant/x86_64/images/CentOS-8-Vagrant-8.2.2004-20200611.2.x86_64.vagrant-libvirt.box"
+  config.vm.box = "centos-stream/8-20220125.1"
+  config.vm.box_url = "https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-Vagrant-8-20220125.1.x86_64.vagrant-libvirt.box"
 
   # need to use the default vagrant key
   config.ssh.insert_key = false
